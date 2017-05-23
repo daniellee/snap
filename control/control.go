@@ -460,7 +460,7 @@ func (p *pluginControl) Start() error {
 		return err
 	}
 
-	opts := []grpc.ServerOption{}
+	opts := []grpc.ServerOption{grpc.MaxMsgSize(1024 * 1024 * 4 * 10)}
 	p.closingChan = make(chan bool, 1)
 	p.grpcServer = grpc.NewServer(opts...)
 	rpc.RegisterMetricManagerServer(p.grpcServer, &ControlGRPCServer{p})
